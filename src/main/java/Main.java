@@ -6,7 +6,6 @@ import java.net.Socket;
 public class Main {
   public static void main(String[] args){
 
-    System.out.println("YO HERE!");
     // You can use print statements as follows for debugging, they'll be visible when running tests.
     System.err.println("Logs from your program will appear here!");
 
@@ -25,7 +24,7 @@ public class Main {
       // Wait for connection from client.
       clientSocket = serverSocket.accept();
       OutputStream out = clientSocket.getOutputStream();
-      out.write(new byte[] {0, 1, 2, 3,0, 0, 0, 7});
+      out.write(new byte[] {0, 1, 2, 3,0, 0, 0});
 
     }catch (IOException e) {
        System.out.println("IOException: " + e.getMessage());
