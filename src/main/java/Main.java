@@ -3,6 +3,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class Main {
   public static void main(String[] args){
@@ -25,14 +26,11 @@ public class Main {
       // Wait for connection from client.
       clientSocket = serverSocket.accept();
       OutputStream out = clientSocket.getOutputStream();
-      out.write(new byte[] {0, 0, 0, 0});
-      out.write(new byte[] {0, 0, 0, 7});
-
 
       InputStream input = clientSocket.getInputStream();
       byte[] inputBytes = input.readAllBytes();
 
-      System.out.println("---------------> " + inputBytes);
+      System.out.println("---------------> " + new String(inputBytes));
 
 
     }catch (IOException e) {
