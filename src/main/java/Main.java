@@ -25,12 +25,21 @@ public class Main {
       serverSocket.setReuseAddress(true);
       // Wait for connection from client.
       clientSocket = serverSocket.accept();
+      InputStream input = clientSocket.getInputStream();
       OutputStream out = clientSocket.getOutputStream();
 
-      InputStream input = clientSocket.getInputStream();
-      byte[] inputBytes = input.readAllBytes();
+      System.out.println(" ----> AAAA");
 
-      System.out.println("---------------> " + new String(inputBytes));
+      byte[] buffer = new byte[1024];
+      int byteRead;
+      if ((byteRead = input.read(buffer)) != -1) {
+        System.out.println(" ----> " + byteRead);
+        byte[] output = new byte[] {0, 0, 0, 0, 0, 0, 0, 0};
+        System.arraycopy(buffer, 8, output, 4, 4);
+        out.write(output);
+      } else {
+        System.out.println("Nothing to read from input stream");
+      }
 
 
     }catch (IOException e) {
