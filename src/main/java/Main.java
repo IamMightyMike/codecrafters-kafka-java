@@ -28,12 +28,12 @@ public class Main {
       InputStream input = clientSocket.getInputStream();
       OutputStream out = clientSocket.getOutputStream();
 
-      System.out.println(" ----> AAAA");
+
 
       byte[] buffer = new byte[1024];
       int byteRead;
       if ((byteRead = input.read(buffer)) != -1) {
-        System.out.println(" ----> " + byteRead);
+        System.out.println(" ----> " + new String(buffer));
         byte[] output = new byte[] {0, 0, 0, 0, 0, 0, 0, 0};
         System.arraycopy(buffer, 8, output, 4, 4);
         out.write(output);
