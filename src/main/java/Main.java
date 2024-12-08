@@ -4,6 +4,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class Main {
   public static void main(String[] args){
@@ -34,9 +35,17 @@ public class Main {
       int byteRead;
       if ((byteRead = input.read(buffer)) != -1) {
 
-        String aaaa = new String(buffer);
-        System.out.println(" ----> " + aaaa);
+
+        System.out.println(" ----> " + buffer);
         byte[] output = new byte[] {0, 0, 0, 0, 0, 0, 0, 0};
+
+        int offsetOrigin = 8;
+        int offsetDestination = 4;
+        IntStream.range(0,4).forEach(i -> {
+
+          output[i + offsetDestination] = buffer[i + offsetOrigin];
+        });
+
         System.arraycopy(buffer, 8, output, 4, 4);
         out.write(output);
       } else {
