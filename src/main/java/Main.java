@@ -30,7 +30,7 @@ public class Main {
       InputStream input = clientSocket.getInputStream();
       OutputStream out = clientSocket.getOutputStream();
 
-      //Para conectar desde WSL sacar la IP con cat /etc/resolv.conf | grep nameserver 
+      //Para conectar desde WSL sacar la IP con cat /etc/resolv.conf | grep nameserver
 
       byte[] buffer = new byte[1024];
       int byteRead;
