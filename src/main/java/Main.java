@@ -3,8 +3,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
 import java.util.stream.IntStream;
+import java.util.stream.Collectors;
+import java.util.Arrays;
 
 public class Main {
   public static void main(String[] args){
@@ -29,24 +30,23 @@ public class Main {
       InputStream input = clientSocket.getInputStream();
       OutputStream out = clientSocket.getOutputStream();
 
-
+      //Para conectar desde WSL sacar la IP con cat /etc/resolv.conf | grep nameserver
 
       byte[] buffer = new byte[1024];
       int byteRead;
       if ((byteRead = input.read(buffer)) != -1) {
 
 
-        System.out.println(" ----> " + buffer);
-        byte[] output = new byte[] {0, 0, 0, 0, 0, 0, 0, 0};
+          byte[] output = new byte[] {0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-        int offsetOrigin = 8;
-        int offsetDestination = 4;
-        IntStream.range(0,4).forEach(i -> {
+          int offsetOrigin = 8;
+          int offsetDestination = 4;
+          IntStream.range(0,6).forEach(i -> {
 
           output[i + offsetDestination] = buffer[i + offsetOrigin];
         });
 
-        System.arraycopy(buffer, 8, output, 4, 4);
+        System.arraycopy(buffer, 8, output, 4, 6);
         out.write(output);
       } else {
         System.out.println("Nothing to read from input stream");
