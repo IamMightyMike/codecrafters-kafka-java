@@ -35,7 +35,7 @@ public class Parser {
                 .setArrayTaggedFields((byte)0)
                 .setThrottleTime(0)
                 .setOuterTaggedFields((byte)0)
-                .build();
+                .build(); 
 
         return response;
     }
