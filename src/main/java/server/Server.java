@@ -58,10 +58,14 @@ public class Server extends Thread{
                 while(!clientSocket.isClosed()) {
                     InputStream inputStream = clientSocket.getInputStream();
 
+                    System.out.println("----------> Referencia Input Stream " + inputStream);
+
                     Request daRequest = Parser.parseRequest(inputStream);
+                    System.out.println("----------> Recibido CORR ID " + daRequest.getCorrelationId());
 
                     Response daResponse = Parser.parseResponseFromRequest(daRequest);
 
+                    System.out.println("----------> Enviando CORR ID " + daResponse.getCorrelationId());
                     byte[] outpuBytes = Encoder.encodeResponse(daResponse);
 
 
