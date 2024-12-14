@@ -57,9 +57,6 @@ public class Server extends Thread{
 
                 while(!clientSocket.isClosed()) {
                     InputStream inputStream = clientSocket.getInputStream();
-                    inputStream.reset();
-
-                    System.out.println("----------> Referencia Input Stream " + inputStream);
 
                     Request daRequest = Parser.parseRequest(inputStream);
                     System.out.println("----------> Recibido CORR ID " + daRequest.getCorrelationId());
