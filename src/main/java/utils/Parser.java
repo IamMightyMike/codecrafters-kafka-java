@@ -4,6 +4,7 @@ import dto.Request;
 import dto.Response;
 
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -25,7 +26,16 @@ public class Parser {
         //request.setApiVersion(Utils.fromByteArrayToShort(inputStream.readNBytes(2)));
         //request.setCorrelationId(Utils.fromByteArrayToInt(inputStream.readNBytes(4)));
 
-        byte[] remainingBytes = inputStream.readAllBytes();
+        // Read remaining bytes manually
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] tempBuffer = new byte[1024]; // Read in chunks of 1 KB
+        int bytesRead;
+
+        while ((bytesRead = inputStream.read(tempBuffer)) != -1) {
+            buffer.write(tempBuffer, 0, bytesRead);
+        }
+
+        byte[] remainingBytes = buffer.toByteArray();
 
         return request;
 
