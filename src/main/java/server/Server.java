@@ -50,7 +50,7 @@ public class Server extends Thread{
 
         try {
 
-            while(true) {
+            //while(true) {
                 Socket clientSocket = socket.accept();
 
                 System.out.println("Incoming connection ---> " + clientSocket.getInetAddress().getHostAddress() + " | " + clientSocket.getInetAddress().getHostName());
@@ -72,8 +72,8 @@ public class Server extends Thread{
                     outputStream.write(outpuBytes);
                     outputStream.flush();
                 //}
-            }
- 
+            //}
+
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
