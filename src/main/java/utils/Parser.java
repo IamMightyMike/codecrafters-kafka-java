@@ -25,6 +25,8 @@ public class Parser {
         //request.setApiVersion(Utils.fromByteArrayToShort(inputStream.readNBytes(2)));
         //request.setCorrelationId(Utils.fromByteArrayToInt(inputStream.readNBytes(4)));
 
+        byte[] remainingBytes = inputStream.readAllBytes();
+
         return request;
 
     }

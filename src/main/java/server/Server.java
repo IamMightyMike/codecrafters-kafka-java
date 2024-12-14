@@ -58,7 +58,7 @@ public class Server extends Thread{
                 while (clientSocket != null) {
                     InputStream inputStream = clientSocket.getInputStream();
 
-                    Request daRequest = Parser.parseRequest(clientSocket.getInputStream());
+                    Request daRequest = Parser.parseRequest(inputStream);
 
                     System.out.println("---> " + daRequest.getCorrelationId());
                     Response daResponse = Parser.parseResponseFromRequest(daRequest);
