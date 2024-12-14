@@ -57,6 +57,7 @@ public class Server extends Thread{
 
                 while(!clientSocket.isClosed()) {
                     InputStream inputStream = clientSocket.getInputStream();
+                    inputStream.reset();
 
                     System.out.println("----------> Referencia Input Stream " + inputStream);
 
