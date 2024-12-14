@@ -55,7 +55,7 @@ public class Server extends Thread{
 
                 System.out.println("Incoming connection ---> " + clientSocket.getInetAddress().getHostAddress() + " | " + clientSocket.getInetAddress().getHostName());
 
-                //while (!clientSocket.isClosed()) {
+                while (clientSocket != null) {
                     InputStream inputStream = clientSocket.getInputStream();
 
                     Request daRequest = Parser.parseRequest(clientSocket.getInputStream());
@@ -71,7 +71,7 @@ public class Server extends Thread{
                     outputStream.write(Utils.fromIntToByteArray(outpuBytes.length));
                     outputStream.write(outpuBytes);
                     outputStream.flush();
-                //}
+                }
             //}
 
         } catch (IOException e) {
