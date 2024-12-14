@@ -27,16 +27,8 @@ public class Parser {
         //request.setCorrelationId(Utils.fromByteArrayToInt(inputStream.readNBytes(4)));
 
         // Read remaining bytes manually
-        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-        byte[] tempBuffer = new byte[1024]; // Read in chunks of 1 KB
-        int bytesRead;
 
-        while ((bytesRead = inputStream.read(tempBuffer)) != -1) {
-            buffer.write(tempBuffer, 0, bytesRead);
-        }
-
-        byte[] remainingBytes = buffer.toByteArray();
-
+        inputStream.readNBytes(request.getLength());
         return request;
 
     }
