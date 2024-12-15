@@ -5,22 +5,46 @@ import dto.Response;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 public class Parser {
 
     public static Request parseRequest(InputStream inputStream) throws IOException {
 
+        DataInputStream dataInputStream = new DataInputStream(inputStream);
 
 
+        int messageSize = dataInputStream.readInt();
+        System.out.println("Message size: " + messageSize);
+
+
+        ByteBuffer byteBuffas = ByteBuffer.wrap(dataInputStream.readNBytes(messageSize));
+
+        short apiKey = byteBuffas.getShort();
+        short requestApiVersion = byteBuffas.getShort();
+        int correlationId = byteBuffas.getInt();
+        short clientIdLength = byteBuffas.getShort();
+        String clientId = null;
+        if (clientIdLength >= 0) {
+            clientId = new String(byteBuffas.get(new byte[clientIdLength]).array());
+        }
 
         Request request = Request.builder()
-                .setLength(Utils.fromByteArrayToInt(inputStream.readNBytes(4)))
-                .setApikey(Utils.fromByteArrayToShort(inputStream.readNBytes(2)))
-                .setApiVersion(Utils.fromByteArrayToShort(inputStream.readNBytes(2)))
-                .setCorrelationId(Utils.fromByteArrayToInt(inputStream.readNBytes(4)))
+                .setLength(messageSize)
+                .setApikey(apiKey)
+                .setApiVersion(requestApiVersion)
+                .setCorrelationId(correlationId)
                 .build();
+
+        //Request request = Request.builder()
+        //        .setLength(Utils.fromByteArrayToInt(inputStream.readNBytes(4)))
+        //        .setApikey(Utils.fromByteArrayToShort(inputStream.readNBytes(2)))
+        //        .setApiVersion(Utils.fromByteArrayToShort(inputStream.readNBytes(2)))
+        //        .setCorrelationId(Utils.fromByteArrayToInt(inputStream.readNBytes(4)))
+        //        .build();
 
 
 
