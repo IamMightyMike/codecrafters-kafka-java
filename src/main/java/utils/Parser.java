@@ -13,6 +13,8 @@ public class Parser {
     public static Request parseRequest(InputStream inputStream) throws IOException {
 
 
+
+
         Request request = Request.builder()
                 .setLength(Utils.fromByteArrayToInt(inputStream.readNBytes(4)))
                 .setApikey(Utils.fromByteArrayToShort(inputStream.readNBytes(2)))
@@ -20,11 +22,7 @@ public class Parser {
                 .setCorrelationId(Utils.fromByteArrayToInt(inputStream.readNBytes(4)))
                 .build();
 
-        //Request request = new Request();
-        //request.setLength(Utils.fromByteArrayToInt(inputStream.readNBytes(4)));
-        //request.setApikey(Utils.fromByteArrayToShort(inputStream.readNBytes(2)));
-        //request.setApiVersion(Utils.fromByteArrayToShort(inputStream.readNBytes(2)));
-        //request.setCorrelationId(Utils.fromByteArrayToInt(inputStream.readNBytes(4)));
+
 
         // Read remaining bytes manually
 
