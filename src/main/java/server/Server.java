@@ -17,10 +17,13 @@ public class Server extends Thread{
     private int port;
     ServerSocket socket;
 
+    private Parser parser;
+
 
     public Server(int port) throws IOException {
         this.port = port;
         this.socket = new ServerSocket(port);
+        this.parser = new Parser();
 
         // Since the tester restarts your program quite often, setting SO_REUSEADDR
         // ensures that we don't run into 'Address already in use' errors
@@ -58,10 +61,10 @@ public class Server extends Thread{
                 while (clientSocket != null) {
                     InputStream inputStream = clientSocket.getInputStream();
 
-                    Request daRequest = Parser.parseRequest(inputStream);
+                    Request daRequest = parser.parseRequest(inputStream);
 
                     System.out.println("---> " + daRequest.getCorrelationId());
-                    Response daResponse = Parser.parseResponseFromRequest(daRequest);
+                    Response daResponse = parser.parseResponseFromRequest(daRequest);
 
 
                     byte[] outpuBytes = Encoder.encodeResponse(daResponse);

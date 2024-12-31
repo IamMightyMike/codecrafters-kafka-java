@@ -12,7 +12,7 @@ import java.nio.ByteBuffer;
 
 public class Parser {
 
-    public static Request parseRequest(InputStream inputStream) throws IOException {
+    public Request parseRequest(InputStream inputStream) throws IOException {
 
         DataInputStream dataInputStream = new DataInputStream(inputStream);
 
@@ -55,7 +55,7 @@ public class Parser {
 
     }
 
-    public static Response parseResponseFromRequest(Request request){
+    public Response parseResponseFromRequest(Request request){
 
         Response response = Response.builder()
                 .setCorrelationId(request.getCorrelationId())
